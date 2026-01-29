@@ -51,17 +51,69 @@ It is a set of bits that represent...
 
 - Condition flags set from instruction execution:
   - n (Negative), z (Zero), c (Carry), v (oVerflow)
-  - Program often use the compare (cmp) instruction to set flags and then use the conditional branch instructions to execute the appropriate code
+  - Programs often use the compare (cmp) instruction to set flags and then use the conditional branch instructions to execute the appropriate code
       - beg, bne, bla, bhi, ble, bge, ...
 
 ## Instruction Format
 
-General format of AARCH64 instructions is:
+The general format of AARCH64 instructions is:
 
     instr_name dest_reg, src_reg1, src_reg2    // 64-bit x registers for 64-bit operations
     instr_name dest_reg, src_reg1, immediate   // 32-bit w registers for 32-bit operations
 
 **NOTE: You cannot "mix" the register sizes**
+
+    //This is the section where data can go
+    //DIRECTIVES
+    .section data 
+    
+
+    //This is where the actual code goes
+    //INSTRUCTIONS
+    .section  .text
+
+### Sections
+
+Declaring sections in **GAS assembly**
+- `.data` is a read-write data section of initialized data
+- `.rodata` is a read-only section of initialized data
+- `.bss` is a read-write section of data initialized to zero (zeroed when loaded)
+- `.text` is execute-only, program code
+
+### Memory Labels 
+
+Names are easy to remember, so we use **labels** that are names for locations in memory for us to use.
+
+> Example:
+>
+>     .section .data 
+>     my_int:     .word 1234  // .word and .int are the same size for AARCH64
+>     my_int2:    .int 1234 
+> 
+
+### Global Symbols 
+
+Declare main to be a **globally-visible label** 
+
+Globally visible labels can be used outside of the file in which they were defined 
+
+So, global variables and functions can be *exported*
+
+    .section   .data
+    length:      .int 1
+    width:       .int 2
+    perim:       .int 0
+
+    .section .text
+    .global main
+    main:
+        //main code here
+
+## Branch Modifiers
+
+<img width="1032" height="627" alt="image" src="https://github.com/user-attachments/assets/49b00183-e2f7-440a-b7f4-75e28dedf47a" />
+
+
 
 
 
