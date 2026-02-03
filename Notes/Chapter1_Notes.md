@@ -113,7 +113,45 @@ So, global variables and functions can be *exported*
 
 <img width="1032" height="627" alt="image" src="https://github.com/user-attachments/assets/49b00183-e2f7-440a-b7f4-75e28dedf47a" />
 
+## The Stack
 
+SP (stack pointer) register points to the top of the stack, where the address is a multiple of 16
 
+It can be used in `ldr`, `str`, and arithmetic instructions
+
+The stack always needs to be grown by 16 bytes and nothing more/less
+
+### Saving Stack Pointer
+
+When going to a function, make sure to **push** X30 onto the stack when entering a function and **pop** X30 from the stack before returning to a function
+
+    main:
+        // Save X30 
+        sub sp, sp, 16
+        str x30, [sp]
+        bl f
+        // Restore X30
+        ldr x30, [sp]
+        add sp, sp, 16
+        ret
+
+    f:
+        // Save X30
+        sub sp, sp, 16
+        str x30, [sp]
+        bl g
+        // Restore X30
+        ldr x30, [sp]
+        add sp, sp, 16
+        ret
+
+## Passing Arguments
+
+Pass the first 8 (integer or address) arguments in registers:
+- X0...X7 and/or W0...W7
+
+If you have more than 8 arguments, pass them on the stack into the function
+
+If arguments are structures (pass by value), then pass them on the stack
 
 
