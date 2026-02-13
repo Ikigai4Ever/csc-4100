@@ -1,8 +1,8 @@
 //
 //	Name: Ty Ahrens
-//	Date: 2/11/2026
+//	Date: 2/12/2026
 //	
-//	box.S - version 0.1.0
+//	box.S - version 0.1.1
 //
 
 .global     box
@@ -186,36 +186,36 @@ _box_draw_top_bottom_:
 	mov		w21, w2		//	er
 	mov		w22, w3 	//	ec
 	
-	add		w23, w20, 1		//	w23 is starting column of top row
+	add		w9, w20, 1		//	w9 is starting column of top row
 	
 _top_loop_:
 	//	check if current position equals the top right corner
-	cmp 	w23, w22
+	cmp 	w9, w22
 	bge		_top_loop_done_
 	
 	//	draw line in current column
 	mov		w0, w19
-	mov		w1, w23
+	mov		w1, w9
 	mov		w2, '-'
 	bl		putc_to
 	
-	add		w23, w23, 1		//	increment current column by 1
+	add		w9, w9, 1		//	increment current column by 1
 	b		_top_loop_		//	loop again
 	
 _top_loop_done_:
-	add		w23, w20, 1		//	reset column to starting position
+	add		w9, w20, 1		//	reset column to starting position
 	
 _bottom_loop_:
-	cmp		w23, w22
+	cmp		w9, w22
 	bge		_bottom_loop_done_
 	
 	//	draw line in current column
 	mov		w0, w21
-	mov		w1, w23
+	mov		w1, w9
 	mov		w2, '-'
 	bl		putc_to
 	
-	add		w23, w23, 1			//	increment current column by 1
+	add		w9, w9, 1			//	increment current column by 1
 	b		_bottom_loop_		//	loop again
 	
 	
@@ -245,33 +245,33 @@ _box_draw_right_left_:
 	mov		w21, w2		//	er
 	mov		w22, w3 	//	ec
 
-	add		w23, w19, 1		//	add 1 to starting row
+	add		w9, w19, 1		//	add 1 to starting row
 				
 _left_loop_:
-	cmp		w23, w21
+	cmp		w9, w21
 	bge		_left_loop_done_
 	
-	mov		w0, w23
+	mov		w0, w9
 	mov		w1, w20
 	mov		w2, '|'
 	bl		putc_to
 	
-	add		w23, w23, 1		//	increment row number by 1
+	add		w9, w9, 1		//	increment row number by 1
 	b		_left_loop_
 
 _left_loop_done_:
-	add		w23, w19, 1		//	reset w23 to starting row + 1
+	add		w9, w19, 1		//	reset w9 to starting row + 1
 
 _right_loop_:
-	cmp		w23, w21
+	cmp		w9, w21
 	bge		_right_loop_done_
 	
-	mov		w0, w23
+	mov		w0, w9
 	mov		w1, w22
 	mov		w2, '|'
 	bl		putc_to
 	
-	add		w23, w23, 1		//	increment row number by 1
+	add		w9, w9, 1		//	increment row number by 1
 	b		_right_loop_
 
 
