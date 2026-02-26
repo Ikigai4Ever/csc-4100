@@ -56,18 +56,31 @@
 - Describe what happens during process switching. Be able to answer the question "Is the operating system a process?" and discuss the issues involved. See the Review Questions 3.1 through 3.14. I could ask you to do problems like: 3.1, 3.3, 3.4, 3.10. (8th edition):
 
 3.1 What is an instruction trace?
+
 3.2 What common events lead to the creation of a process?
+
 3.3 For the processing model of Figure 3.6, briefly define each state.
+
 3.4 What does it mean to preempt a process?
+
 3.5 What is swapping and what is its purpose?
+
 3.6 Why does Figure 3.9b have two blocked states?
+
 3.7 List four characteristics of a suspended process.
+
 3.8 For what types of entities does the OS maintain tables of information for management purposes?
+
 3.9 List three general categories of information in a process control block.
+
 3.10 Why are two modes (user and kernel) needed?
+
 3.11 What are the steps performed by an OS to create a new process?
+
 3.12 What is the difference between an interrupt and a trap?
+
 3.13 Give three examples of an interrupt.
+
 3.14 What is the difference between a mode switch and a process switch?
 
 3.1 The following state transition table is a simplified model of process management, with
@@ -75,6 +88,7 @@ the labels representing transitions between states of READY, RUN, BLOCKED, and
 NONRESIDENT.
 
 State Transitions
+
 <img width="669" height="158" alt="image" src="https://github.com/user-attachments/assets/96133b17-e8fe-4c12-b925-570e563864bc" />
 
 Give an example of an event that can cause each of the above transitions. Draw a
