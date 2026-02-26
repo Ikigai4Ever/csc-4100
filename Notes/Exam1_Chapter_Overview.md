@@ -10,7 +10,7 @@
 - Know that advances for operating systems have occurred in information protection and security Be able to discuss areas of availability, confidentiality, data integrity, and authenticity.
 - Discuss achievements scheduling and resource management. Discuss fairness, differential responsiveness, and efficiency.
 - Discuss advances in system structure. Describe a layered architecture.  Discuss the difference between a monolithic kernel and a microkernel. Know the difference between a thread and a process.
-- See Review Questions 2.1 through 2.11. I could ask you to do problems from Section 2.13 Problems like 2.1, 2.2, 2.3, 2.4 (8th edition):
+- See **Review Questions 2.1 through 2.11**. I could ask you to do problems from Section `2.13` Problems like `2.1, 2.2, 2.3, 2.4` (8th edition):
 
 2.1 What are three objectives of an OS design?
 
@@ -63,7 +63,7 @@
 - Understand the different modes of execution: user mode and kernel mode.
 - Understand the steps of process creation. Discuss when process switching can occur (clock interrupt, I/O interrupt, memory fault, supervisor call, trap).
 - Make sure that you understand the steps that occur during process switching.
-- Describe what happens during process switching. Be able to answer the question "Is the operating system a process?" and discuss the issues involved. See the Review Questions 3.1 through 3.14. I could ask you to do problems like: 3.1, 3.3, 3.4, 3.10. (8th edition):
+- Describe what happens during process switching. Be able to answer the question "Is the operating system a process?" and discuss the issues involved. See the Review Questions 3.1 through 3.14. I could ask you to do problems like: `3.1, 3.3, 3.4, 3.10.` (8th edition):
 
 3.1 What is an instruction trace?
 
@@ -97,7 +97,7 @@
 the labels representing transitions between states of READY, RUN, BLOCKED, and
 NONRESIDENT.
 
-State Transitions
+### State Transitions
 
 <img width="669" height="158" alt="image" src="https://github.com/user-attachments/assets/96133b17-e8fe-4c12-b925-570e563864bc" />
 
