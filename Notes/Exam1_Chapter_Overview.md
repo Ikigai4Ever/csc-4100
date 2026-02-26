@@ -13,15 +13,25 @@
 - See Review Questions 2.1 through 2.11. I could ask you to do problems from Section 2.13 Problems like 2.1, 2.2, 2.3, 2.4 (8th edition):
 
 2.1 What are three objectives of an OS design?
+
 2.2 What is the kernel of an OS?
+
 2.3 What is multiprogramming?
+
 2.4 What is a process?
+
 2.5 How is the execution context of a process used by the OS?
+
 2.6 List and briefly explain five storage management responsibilities of a typical OS.
+
 2.7 Explain the distinction between a real address and a virtual address.
+
 2.8 Describe the round-robin scheduling technique.
+
 2.9 Explain the difference between a monolithic kernel and a microkernel.
+
 2.10 What is multithreading?
+
 2.11 List the key design issues for an SMP operating system.
 
 2.1 Suppose that we have a multiprogrammed computer in which each job has identical characteristics. In one computation period, T, for a job, half the time is spent in I/O and the other half in processor activity. Each job runs for a total of N periods. Assume that a simple round-robin scheduling is used, and that I/O operations can overlap with processor operation. Define the following quantities:
