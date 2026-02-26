@@ -62,8 +62,7 @@
 3.5 What is swapping and what is its purpose?
 3.6 Why does Figure 3.9b have two blocked states?
 3.7 List four characteristics of a suspended process.
-3.8 For what types of entities does the OS maintain tables of information for manage-
-ment purposes?
+3.8 For what types of entities does the OS maintain tables of information for management purposes?
 3.9 List three general categories of information in a process control block.
 3.10 Why are two modes (user and kernel) needed?
 3.11 What are the steps performed by an OS to create a new process?
@@ -76,10 +75,7 @@ the labels representing transitions between states of READY, RUN, BLOCKED, and
 NONRESIDENT.
 
 State Transitions
-READY	RUN	BLOCKED	NONRESIDENT
-READY	-	1	-	5
-RUN	2	-	3	-
-BLOCKED	4	-	-	6
+<img width="669" height="158" alt="image" src="https://github.com/user-attachments/assets/96133b17-e8fe-4c12-b925-570e563864bc" />
 
 Give an example of an event that can cause each of the above transitions. Draw a
 diagram if that helps.
