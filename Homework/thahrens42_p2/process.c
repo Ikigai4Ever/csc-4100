@@ -2,11 +2,10 @@
  *	Name: Ty Ahrens
  *	Date: 3/11/2026
  *	
- *	process.c - version 0.2.0
+ *	process.c - version 0.2.1
  *
  */
  
-#include <stdint.h>
 #include "libos.h"
 
 /******************* FUNCTIONS *******************/
@@ -14,7 +13,7 @@
 /*
  *	      Name: spawn_process
  *	   Purpose: Allocate a stack and PCB, set up initial contaxt, and enqueueing a new process 
- *	  Elements: code_address - pointer to function of process to run
+ *	  Parameters: code_address - pointer to function of process to run
  *				
  */
 int spawn_process(int (*code_address)()){
@@ -69,12 +68,12 @@ int spawn_process(int (*code_address)()){
                                             // of the next pid using a
                                             // global variable
     pcb->sp = (uint64_t)sp;
-    pcb->pcb = next_pid++;
+    pcb->pid = next_pid++;
 
     //enqueue the pcb onto the Ready_q  // Ready_q should be a global
 	q_enqueue(&Ready_q, pcb);
 
-    return 0 /* no errors occured */
+    return 0; /* no errors occured */
     // Note that if alloc_stack() or alloc_pcb() returns NULL, you should return 
     //  -1 instead to indicate the error
- }
+}

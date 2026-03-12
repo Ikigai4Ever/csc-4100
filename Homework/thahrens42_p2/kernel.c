@@ -1,64 +1,19 @@
-	//	in main:
-	//	call clear_scr with the start row, start column, end row, and end column
-	//	call the box function with the start row, start column end row, and end column of the box
-	//	call print_to with the row and column, and string to print
-
-	// note: prototype of the following functions are:
-	//   int box(unsigned int srow, unsigned int scol, unsigned 
-	//           int erow, unsigned int ecol);
-	//   int print_to(unsinged int row, unsigned int col, char *string);
-	//   int clear_scr(int start_row, int start_col, int width, int height);
-	// box() and clear_scr returns 1 on error
-	// The values that you should pass for box and clear_scr are srow = 21, 
-	//   scol = 49, erow = 27, ecol = 79
-	// The values that you should pass for print_to are row = 24, 
-	//   column= 59, and string = "Hello world"
-	
 /*
  *	Name: Ty Ahrens
  *	Date: 3/11/2026
  *	
- *	kernel.c - version 0.2.0
+ *	kernel.c - version 0.2.1
  *
  */
  
-#include <stdio.h>
-#include <string.h>
 #include "libos.h"
-#include <stdint.h>
 
-/******************* DATA STRUCTURES *******************/
-
-/*
- *	      Name: PCB_t
- *	   Purpose: Holds different parts that the OS needs to know about a process 
- *	  Elements: sp - pointer to the sp to save last running spot
- *				pid - process id 				
- *				*next - pointer to the PCB next in queue
- */
-typedef struct PCB {
-	uint64_t sp;
-	uint32_t pid;						
-	struct PCB *next;		
-} PCB_t;
-
-/*
- *	      Name: PCB_Q_t
- *	   Purpose: Linked queue of PCB points for stack 
- *	  Elements: *head - next process to run from stack
- *				*tail - last process added to stack
- */
- typedef struct {
- 	PCB_Q_t *head;
- 	PCB_Q_t *tail;
- 	
-} PCB_Q_t;
 
 /******************* VARIABLES *******************/
 
-PCB_t *Running;		//pointer to current running process
-PCB_Q_t Ready_q;	//queue of process waiting to run
-uint32_t next_pid = 1;
+PCB_t    *Running;
+PCB_Q_t   Ready_q;
+uint32_t  next_pid = 1;
 
 //clear_scr passes
 const int SROW = 21;
@@ -73,25 +28,11 @@ const char str[20] = "Running Processes";
 
 
 /******************* PROTOTYPES *******************/
-int box(unsigned int srow, unsigned int scol, unsigned int erow, unsigned int ecol);
-
-//queue.c
-void q_init(PCB_Q_t *q);
-void q_enqueue(PCB_Q_t *q, PCB_t *pcb);
-PCB_t *q_dequeue(PCB_Q_t *q);
-
-//process.c
-int spawn_process(int (*pfun)());
-
 //processes
 int p1();
 int p2();
 int p3();
 int p4();
-/*
-int print_to(unsigned int, unsigned int, char *);
-int clear_scr(int, int, int, int); 
-*/
 
 /******************* FUNCTIONS *******************/
 
@@ -113,17 +54,6 @@ int clear_scr(int start_row, int start_col, int width, int height){
 }
 
 /*
- *	      Name: q_init
- *	   Purpose: initialize the ready queue properly (head and tail to NULL)
- *	Parameters: q - pointer to Queue_t
- */
-void q_init(PCB_Q_t *q){
-	q->head = NULL;
-	q->tail = NULL;
-	
-}
-
-/*
  *	      Name: dispatch_select
  *	   Purpose: Choose what process is to run next based on pulling the head of queue
  *				and setting current running point 
@@ -131,6 +61,146 @@ void q_init(PCB_Q_t *q){
  */
 void dispatch_select(){
 	Running = q_dequeue(&Ready_q);
+	
+	if (Running == NULL){
+		print_to(0, 0, "Error: Ready_q is empty!");
+	}
+}
+
+/*
+ *        Name: is_prime
+ *     Purpose: Brute force prime checker using division up to half the number
+ *  Parameters: num - number to check
+ */
+int is_prime(unsigned long long num) {
+    if (num < 2) 
+    	return 0;
+    for (unsigned long long i = 2; i <= num / 2; i++) {
+        dispatch();       // yield CPU during loop so other processes can run
+        if (num % i == 0) 
+        	return 0;
+    }
+    return 1;
+}
+
+/*
+ *	      Name: p1
+ *	   Purpose: Counts primes, then displays count in box at row 9-11, col 23-29
+ *				and setting current running point 
+ *	Parameters: n/a
+ */
+int p1(){
+	char message[] = "Process 1: 0";
+	unsigned long long num = 1;
+	int count = 0;
+	
+	box(9,23,11,39);
+	print_to(10,25,message);
+	
+	while(1){
+		if (is_prime(num)){
+		    count++;
+		    char countc = count + '0';  // convert count to character
+		    message[11] = countc;
+		}
+		print_to(10, 25, message);       // print every iteration
+		num++;
+		if (count > 9)            
+			count = 0;
+		if (num   > 4000000000ULL) 
+			num  = 1;
+    }
+    return 0;
+}
+
+/*
+ *	      Name: p2
+ *	   Purpose: Counts primes, then displays count in box at row 13-15, col 23-29
+ *				and setting current running point 
+ *	Parameters: n/a
+ */
+int p2(){
+	char message[] = "Process 2: 0";
+	unsigned long long num = 1;
+	int count = 0;
+	
+	box(13, 23, 15, 39);
+	print_to(14, 25, message);
+	
+	while(1){
+		if (is_prime(num)){
+		    count++;
+		    char countc = count + '0';  
+		    message[11] = countc;
+		}
+		print_to(14, 25, message);       
+		num++;
+		if (count > 9)            
+			count = 0;
+		if (num   > 4000000000ULL) 
+			num  = 1;
+    }
+    return 0;
+}
+
+/*
+ *	      Name: p3
+ *	   Purpose: Counts primes, then displays count in box at row 9-11, col 49-65
+ *				and setting current running point 
+ *	Parameters: n/a
+ */
+int p3(){
+	char message[] = "Process 3: 0";
+	unsigned long long num = 1;
+	int count = 0;
+	
+	box(9, 49, 11, 65);
+	print_to(10, 51, message);
+	
+	while(1){
+		if (is_prime(num)){
+		    count++;
+		    char countc = count + '0';  
+		    message[11] = countc;
+		}
+		print_to(10, 51, message);       
+		num++;
+		if (count > 9) 
+			count = 0;
+		if (num   > 4000000000ULL) 
+			num  = 1;
+    }
+    return 0;
+}
+
+/*
+ *	      Name: p4
+ *	   Purpose: Counts primes, then displays count in box at row 13-15, col 49-65
+ *				and setting current running point 
+ *	Parameters: n/a
+ */
+int p4(){
+	char message[] = "Process 4: 0";
+	unsigned long long num = 1;
+	int count = 0;
+	
+	box(13, 49, 15, 65);
+	print_to(14, 51, message);
+	
+	while(1){
+		if (is_prime(num)){
+		    count++;
+		    char countc = count + '0';  
+		    message[11] = countc;
+		}
+		print_to(14, 51, message);       
+		num++;
+		if (count > 9)            
+			count = 0;
+		if (num   > 4000000000ULL) 
+			num  = 1;
+    }
+    return 0;
 }
 
 /******************* MAIN *******************/

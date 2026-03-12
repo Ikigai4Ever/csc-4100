@@ -6,7 +6,6 @@
  *
  */
  
-#include <stdint.h>
 #include "libos.h"
 
 /******************* FUNCTIONS *******************/
