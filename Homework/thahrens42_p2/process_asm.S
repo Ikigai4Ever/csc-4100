@@ -13,7 +13,7 @@
  *	      Name: dispatch
  *	   Purpose: Saves current process context, enqueues it, then falls to restore_context
  *				to run next process
- *	  Elements: n/a
+ *	Parameters: n/a
  */
  dispatch:
  	//1)	subtract 16*16 from the stack
@@ -78,9 +78,11 @@
 	adr		x1, Running		// get address of Running
 	ldr		x1, [x1]		// load the address of Running in x1
 	bl 		q_enqueue		
+	
+	b 		restore_context
+	
 restore_context:   // Note that this is where the inline assembly in main jumps
-    
-    
+   
     //6)	call dispatch_select()   // The function written in C/C++
     bl		dispatch_select
     

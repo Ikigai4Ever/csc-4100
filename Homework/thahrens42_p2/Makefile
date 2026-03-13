@@ -1,8 +1,8 @@
 #
 #	Name: Ty Ahrens
-#	Date: 3/11/2026
+#	Date: 3/13/2026
 #	
-#	Makefile - version 0.2.0
+#	Makefile - version 0.2.1
 #
 
 # NOTE: for Mac M1, M2, or M3 users, remove the "aarch64-linux-gnu-"
@@ -22,6 +22,10 @@ process.o: process.c
 	@echo "compile process.c into process.o..."
 	aarch64-linux-gnu-gcc -g -pedantic -Wall -Wextra -fPIC -std=gnu2x -MMD -c process.c -o process.o
 
+alloc.o: alloc.c
+	@echo "compile alloc.c into alloc.o..."
+	aarch64-linux-gnu-gcc -g -pedantic -Wall -Wextra -fPIC -std=gnu2x -MMD -c alloc.c -o alloc.o
+
 boot.o: boot.S
 	@echo "assemble boot.S into boot.o..."
 	aarch64-linux-gnu-gcc -g -MMD -c boot.S -o boot.o
@@ -34,9 +38,9 @@ process_asm.o: process_asm.S
 	@echo "assemble process_asm.S into process_asm.o..."
 	aarch64-linux-gnu-gcc -g -MMD -c process_asm.S -o process_asm.o
 
-kernel.elf: kernel.o queue.o process.o boot.o box.o process_asm.o libos.a
+kernel.elf: kernel.o queue.o process.o alloc.o boot.o box.o process_asm.o libos.a
 	@echo "link kernel.o, boot.o, box.o, and libos.a together to make kernel.elf"
-	aarch64-linux-gnu-ld -g -N -Ttext=0x10000 -o kernel.elf kernel.o queue.o process.o boot.o box.o process_asm.o libos.a
+		aarch64-linux-gnu-ld -g -N -Ttext=0x10000 -o kernel.elf kernel.o queue.o process.o alloc.o boot.o box.o process_asm.o libos.a
 	@echo "Note that the linker may give the following complaint. Ignore it."
 	@echo " "
 	@echo "=============================================="
@@ -50,7 +54,7 @@ kernel.elf: kernel.o queue.o process.o boot.o box.o process_asm.o libos.a
 # clean up all created files
 clean:
 	@echo "Cleaning up..."
-	rm -f kernel.o queue.o process.o boot.o box.o process_asm.o kernel.elf *.d
+	rm -f kernel.o queue.o process.o boot.o alloc.o box.o process_asm.o kernel.elf *.d
 	
 # run the OS
 run:

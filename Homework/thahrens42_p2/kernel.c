@@ -2,7 +2,7 @@
  *	Name: Ty Ahrens
  *	Date: 3/11/2026
  *	
- *	kernel.c - version 0.2.1
+ *	kernel.c - version 0.2.2
  *
  */
  
@@ -73,10 +73,15 @@ void dispatch_select(){
  *  Parameters: num - number to check
  */
 int is_prime(unsigned long long num) {
+    int count = 0;	// counter for number of passed iterations before calling dispatch
     if (num < 2) 
     	return 0;
     for (unsigned long long i = 2; i <= num / 2; i++) {
-        dispatch();       // yield CPU during loop so other processes can run
+        count++;
+        if (count >= 1500){
+        	dispatch();       // yield CPU during loop so other processes can run
+        	count = 0;
+        }
         if (num % i == 0) 
         	return 0;
     }
@@ -250,9 +255,7 @@ int main() {
  		return 1;
  	}
 
-    // Now begin running the first process ...
-    dispatch_select();
-  
+    // Now begin running the first process ...  
 	asm volatile("b restore_context");  // dispatch the current Running process
                                         //   This restores the context of the process
                                         //   at which Running points, and then jumps
