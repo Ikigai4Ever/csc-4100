@@ -1,8 +1,8 @@
 /*
  *	Name: Ty Ahrens
- *	Date: 3/11/2026
+ *	Date: 4/19/2026
  *	
- *	kernel.c - version 0.2.2
+ *	kernel.c - version 0.3.0
  *
  */
  
@@ -33,6 +33,10 @@ int p1();
 int p2();
 int p3();
 int p4();
+
+//assembly routines
+void setup_EVT(void);
+void init_timer(void);
 
 /******************* FUNCTIONS *******************/
 
@@ -73,15 +77,15 @@ void dispatch_select(){
  *  Parameters: num - number to check
  */
 int is_prime(unsigned long long num) {
-    int count = 0;	// counter for number of passed iterations before calling dispatch
     if (num < 2) 
     	return 0;
     for (unsigned long long i = 2; i <= num / 2; i++) {
-        count++;
-        if (count >= 1500){
-        	dispatch();       // yield CPU during loop so other processes can run
-        	count = 0;
-        }
+        /* 	count++;
+       		if (count >= 1500){
+        		dispatch();       // yield CPU during loop so other processes can run
+        		count = 0;
+        	}
+        */
         if (num % i == 0) 
         	return 0;
     }
@@ -254,6 +258,9 @@ int main() {
  		print_to(4, 0, "Error spawning p4");
  		return 1;
  	}
+ 	
+ 	setup_EVT();
+ 	init_timer();
 
     // Now begin running the first process ...  
 	asm volatile("b restore_context");  // dispatch the current Running process

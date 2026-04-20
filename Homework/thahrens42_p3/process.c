@@ -1,8 +1,8 @@
 /*
  *	Name: Ty Ahrens
- *	Date: 3/11/2026
+ *	Date: 4/19/2026
  *	
- *	process.c - version 0.2.1
+ *	process.c - version 0.3.0
  *
  */
  
@@ -51,7 +51,7 @@ int spawn_process(int (*code_address)()){
 	//set the value at which sp+30 points to code_address // type cast code_address  
                                                           // to a uint64_t so 
                                                           // that the compiler does not complain)
-    *(sp + 30) = (uint64_t)code_address;
+    *(sp + 32) = (uint64_t)code_address;
     
     // Note: you will have to create the pcb struct for the following code
     //set pcb to the return value of alloc_pcb() to allocate a pcb for the 

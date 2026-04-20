@@ -1,8 +1,8 @@
 /*
  *  Name: Ty Ahrens
- *  Date: 3/13/2026
+ *  Date: 4/19/2026
  *
- *  libos.h - version 0.2.1
+ *  libos.h - version 0.3.0
  */
 
 #ifndef LIBOS_H
@@ -54,17 +54,22 @@ extern uint32_t  next_pid;
 
 // alloc.c
 uint64_t *alloc_stack();
-PCB_t    *alloc_pcb();
+PCB_t 	 *alloc_pcb();
 
 // queue.c
-void   q_init(PCB_Q_t *q);
-void   q_enqueue(PCB_Q_t *q, PCB_t *pcb);
-PCB_t *q_dequeue(PCB_Q_t *q);
+void	q_init(PCB_Q_t *q);
+void 	q_enqueue(PCB_Q_t *q, PCB_t *pcb);
+PCB_t 	*q_dequeue(PCB_Q_t *q);
 
 // kernel.c
-int    spawn_process(int (*pfun)());
-void   dispatch_select();
-void   dispatch(void);
-void   restore_context(void);
+int 	spawn_process(int (*pfun)());
+void 	dispatch_select();
+
+// process_asm.c
+void 	dispatch(void);
+void 	restore_context(void);
+void	setup_EVT(void);
+void 	init_timer(void);
+void	clear_timer(void);
 
 #endif
